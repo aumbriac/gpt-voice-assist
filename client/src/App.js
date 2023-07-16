@@ -7,7 +7,7 @@ function App() {
   const [isListening, setIsListening] = useState(false);
   const [isProcessingAnswer, setIsProcessingAnswer] = useState(false);
   const assistant = new GPTVoiceAssist(
-    "http://localhost:3001/api/speak-ai",
+    "http://localhost:3001/api/gpt-voice-assist",
     true
   );
 
