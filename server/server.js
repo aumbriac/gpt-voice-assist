@@ -4,6 +4,12 @@ import cors from "cors";
 
 config();
 
+if (["", "YOUR_OPENAI_KEY"].includes(process.env.OPENAI_KEY)) {
+  throw new Error(
+    "Please enter your OpenAI API key in the `.env.example` file and rename the file `.env`. You can obtain an OpenAI API key here: https://platform.openai.com/account/api-keys"
+  );
+}
+
 const app = express();
 app.use(json());
 app.use(cors());
