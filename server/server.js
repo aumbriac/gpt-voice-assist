@@ -14,7 +14,7 @@ const app = express();
 app.use(json());
 app.use(cors());
 
-app.post("/api/speak-ai", async (req, res) => {
+app.post("/api/gpt-voice-assist", async (req, res) => {
   const { prompt } = req.body;
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
