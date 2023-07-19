@@ -67,7 +67,7 @@ You should now have the server running on `http://localhost:3001/` and the clien
 
 1. Click on the **"Click to Speak to GPT" button** to activate voice recognition.
 
-2. To activate GPT, say "GPT" into your device's microphone. A sound effect will play to indicate that GPT is ready to receive your command.
+2. To activate GPT, say "GPT" into your device's microphone. A sound effect will play to indicate that GPT is ready to receive your command. You can say "cancel" or "nevermind" to deactivate GPT. GPT may be reactivated at any time by saying "GPT".
 
 3. Speak your command or question to the microphone. The GPT assistant will listen to your command, send it to the OpenAI API, and convert the response back to voice.
 
