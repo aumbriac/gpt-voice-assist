@@ -3,9 +3,15 @@ export default class GPTVoiceAssist {
     this.includeLogs = includeLogs;
     this.apiUrl = apiUrl;
     this.recognition = null;
+    this.triggerPhraseHeard = false;
     this.recognitionInProgress = false;
     this.processingAnswer = false;
     this.synth = window.speechSynthesis;
+    this.voices = [];
+    this.synth.onvoiceschanged = () => {
+      this.voices = this.synth.getVoices();
+    };
+
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -30,6 +36,11 @@ export default class GPTVoiceAssist {
 
     this.processingAnswer = true;
     let utterThis = new SpeechSynthesisUtterance(text);
+    if (this.voices[33]) {
+      utterThis.voice = this.voices[33];
+      utterThis.rate = 0.8;
+      utterThis.pitch = 1.1;
+    }
     this.synth.speak(utterThis);
 
     utterThis.onend = () => {
@@ -62,13 +73,44 @@ export default class GPTVoiceAssist {
 
     this.recognition.onresult = async (event) => {
       const speechResult = event.results[0][0].transcript;
-      const response = await this.askGPT(speechResult);
-      if (response) {
-        this.speak(response);
+      if (
+        this.triggerPhraseHeard &&
+        ["cancel", "nevermind", "never mind"].includes(
+          speechResult.trim().toLowerCase()
+        )
+      ) {
+        this.triggerPhraseHeard = false;
+        return;
+      }
+
+      if (
+        !this.triggerPhraseHeard &&
+        speechResult.trim().toLowerCase() === "gpt"
+      ) {
+        let audio = new Audio("./magic.mp3");
+        audio.play();
+        this.triggerPhraseHeard = true;
+        return;
+      }
+
+      if (this.triggerPhraseHeard) {
+        const response = await this.askGPT(speechResult);
+        let audio = new Audio("./subtle.mp3");
+        audio.play();
+        if (response) {
+          setTimeout(() => {
+            this.triggerPhraseHeard = false;
+            this.speak(response);
+          }, 1000);
+        }
       }
     };
 
     this.recognition.start();
+  }
+
+  isActive() {
+    return this.triggerPhraseHeard;
   }
 
   isListening() {
