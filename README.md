@@ -65,11 +65,11 @@ You should now have the server running on `http://localhost:3001/` and the clien
 
 ## Usage
 
-1. Click on the **"Click to Speak to GPT" button** to start the voice recognition.
+1. Click on the **"Click to Speak to GPT" button** to activate voice recognition.
 
-2. Speak your command or question to the microphone. The GPT assistant will listen to your command, send it to the OpenAI API, and convert the response back to voice.
+2. To activate GPT, say "GPT" into your device's microphone. A sound effect will play to indicate that GPT is ready to receive your command.
 
-3. A red pulsing circle next to the "GPT is listening" text indicates that the application is currently listening for your voice commands.
+3. Speak your command or question to the microphone. The GPT assistant will listen to your command, send it to the OpenAI API, and convert the response back to voice.
 
 4. Open the console to see the input and output logs. Note: logs will display only if `true` is passed as a second parameter to `GPTVoiceAssist`.
 
