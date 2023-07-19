@@ -6,6 +6,8 @@ import GPTVoiceAssist from "./GPTVoiceAssist";
 function App() {
   const [isListening, setIsListening] = useState(false);
   const [isProcessingAnswer, setIsProcessingAnswer] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+
   const assistant = new GPTVoiceAssist(
     "http://localhost:3001/api/gpt-voice-assist",
     true
@@ -20,9 +22,14 @@ function App() {
       setIsListening(assistant.isListening());
     }, 500);
 
+    const checkIsActive = setInterval(() => {
+      setIsActive(assistant.isActive());
+    }, 500);
+
     return () => {
       clearInterval(checkListening);
       clearInterval(checkProcessingAnswer);
+      clearInterval(checkIsActive);
     };
     // eslint-disable-next-line
   }, []);
@@ -40,12 +47,13 @@ function App() {
           To start the backend, run <code>node server</code> from the{" "}
           <code>/server</code> directory. To start the frontend, open another
           terminal and enter the <code>/client</code> directory and run{" "}
+          <code>npm i</code> to install the dependencies then run{" "}
           <code>npm start</code>.
         </p>
         <p>
           Open the console to see the input and output. Note: logs will display
           only if <code>true</code> is passed as a second parameter to{" "}
-          <code>GPTVoiceAssist</code>
+          <code>GPTVoiceAssist</code> (it is by default in this app)
         </p>
         <button onClick={() => assistant.listen()}>
           Click to Speak to GPT
@@ -54,7 +62,7 @@ function App() {
           <p className="flex-align">
             GPT is&nbsp;
             <span className="gradient-text">
-              {isListening ? "listening" : "working"}
+              {isActive ? "active" : isListening ? "listening" : "working"}
             </span>
             &ensp;
             <span className="pulse-circle"></span>
