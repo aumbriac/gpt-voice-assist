@@ -14,7 +14,7 @@ A full-stack application that utilizes the OpenAI API and continuously listens f
 1. **Clone the repository** to your local machine.
 
     ```bash
-    git clone https://github.com/yourusername/GPT-Voice-Assist.git
+    git clone https://github.com/aumbriac/GPT-Voice-Assist.git
     ```
 
 2. Navigate to the `/server` directory.
